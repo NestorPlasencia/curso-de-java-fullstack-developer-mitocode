@@ -14,10 +14,11 @@ public class PersonaController {
 	private IPersonaService service;
 	
 	@GetMapping
-	public void saludar() {
+	public Persona saludar() {
 		Persona per = new Persona();
 		per.setIdPersona(1);
 		per.setNombre("Jaime");
 		service.saludar(per);
+		return per;
 	}
 }
