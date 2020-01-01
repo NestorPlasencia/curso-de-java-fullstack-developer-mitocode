@@ -2,9 +2,12 @@ package com.mitocode.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +20,10 @@ public class DetalleVenta {
 
 	@Column(name = "asiento", length = 3)
 	private String asiento;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_venta", nullable = false, foreignKey = @ForeignKey(name = "fk_detalleVenta_venta"))
+	private Venta venta;
 
 	public Integer getIdDetalle() {
 		return idDetalle;
@@ -32,6 +39,14 @@ public class DetalleVenta {
 
 	public void setAsiento(String asiento) {
 		this.asiento = asiento;
+	}
+
+	public Venta getVenta() {
+		return venta;
+	}
+
+	public void setVenta(Venta venta) {
+		this.venta = venta;
 	}
 
 }
