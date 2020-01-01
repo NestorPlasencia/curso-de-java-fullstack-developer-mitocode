@@ -1,8 +1,12 @@
 package com.mitocode.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +24,11 @@ public class Usuario {
 	
 	@Column(name = "estado", nullable = false)
 	private boolean estado;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@MapsId
+	@JoinColumn(name = "id_usuario", nullable = false)
+	private Cliente cliente;
 	
 	public Integer getIdUsuario() {
 		return idUsuario;
@@ -51,6 +60,14 @@ public class Usuario {
 	
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}	
 	
 }
