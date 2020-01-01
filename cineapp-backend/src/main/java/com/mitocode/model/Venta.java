@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +28,14 @@ public class Venta {
 
 	@Column(name = "total", columnDefinition = "decimal(5,2)")
 	private Double total;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_cliente", nullable = false, foreignKey = @ForeignKey(name = "fk_venta_cliente"))
+	private Cliente cliente;
+
+	@ManyToOne
+	@JoinColumn(name = "id_pelicula", nullable = false, foreignKey = @ForeignKey(name = "fk_venta_pelicula"))
+	private Pelicula pelicula;
 
 	public Integer getIdVenta() {
 		return idVenta;
@@ -56,6 +67,22 @@ public class Venta {
 
 	public void setTotal(Double total) {
 		this.total = total;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Pelicula getPelicula() {
+		return pelicula;
+	}
+
+	public void setPelicula(Pelicula pelicula) {
+		this.pelicula = pelicula;
 	}
 
 }
