@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "venta")
 public class Venta {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idVenta;
@@ -98,5 +98,32 @@ public class Venta {
 	public void setDetalle(List<DetalleVenta> detalle) {
 		this.detalle = detalle;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idVenta == null) ? 0 : idVenta.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Venta other = (Venta) obj;
+		if (idVenta == null) {
+			if (other.idVenta != null)
+				return false;
+		} else if (!idVenta.equals(other.idVenta))
+			return false;
+		return true;
+	}
+	
+	
 
 }
