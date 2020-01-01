@@ -4,9 +4,12 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -32,6 +35,10 @@ public class Pelicula {
 	
 	@Column(name = "urlPortada", nullable = false, length = 255)
 	private String urlPortada;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_genero", nullable = false, foreignKey = @ForeignKey(name = "fk_pelicula_genero"))
+	private Genero genero;
 
 	public Integer getIdPelicula() {
 		return idPelicula;
@@ -80,5 +87,14 @@ public class Pelicula {
 	public void setUrlPortada(String urlPortada) {
 		this.urlPortada = urlPortada;
 	}
+
+	public Genero getGenero() {
+		return genero;
+	}
+
+	public void setGenero(Genero genero) {
+		this.genero = genero;
+	}
+	
 
 }
