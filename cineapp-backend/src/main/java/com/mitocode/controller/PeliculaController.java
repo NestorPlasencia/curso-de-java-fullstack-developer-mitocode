@@ -3,6 +3,8 @@ package com.mitocode.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,27 +25,32 @@ public class PeliculaController {
 	private IPeliculaService service;
 	
 	@GetMapping
-	public List<Pelicula> listar(){
-		return service.listar();
+	public ResponseEntity<List<Pelicula>> listar(){
+		List<Pelicula> lista = service.listar();
+		return new ResponseEntity<List<Pelicula>>(lista, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public Pelicula listarPorId(@PathVariable("id") Integer id){
-		return service.listarPorId(id);
+	public ResponseEntity<Pelicula> listarPorId(@PathVariable("id") Integer id){
+		Pelicula obj = service.listarPorId(id);
+		return new ResponseEntity<Pelicula>(obj, HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public Pelicula registrar(@RequestBody Pelicula pel) {
-		return service.registrar(pel);
+	public ResponseEntity<Pelicula> registrar(@RequestBody Pelicula obj) {
+		Pelicula objeto = service.registrar(obj);
+		return new ResponseEntity<Pelicula>(objeto, HttpStatus.CREATED);
 	}
 	
 	@PutMapping
-	public Pelicula modificar(@RequestBody Pelicula pel) {
-		return service.modificar(pel);
+	public ResponseEntity<Pelicula> modificar(@RequestBody Pelicula obj) {
+		Pelicula objeto = service.modificar(obj);
+		return new ResponseEntity<Pelicula>(objeto, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void eliminar(@PathVariable("id") Integer id) {
+	public ResponseEntity<Object> eliminar(@PathVariable("id") Integer id){
 		service.eliminar(id);
+		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 }
