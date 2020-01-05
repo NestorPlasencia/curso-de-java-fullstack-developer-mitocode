@@ -15,7 +15,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+
+@ApiModel(description = "Datos de la pelicula")
 @Entity
 @Table(name = "pelicula")
 public class Pelicula {
@@ -23,27 +27,33 @@ public class Pelicula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idPelicula;
-	
+
+	@ApiModelProperty(notes = "Nombres debe tener minimo 3 caracteres")
 	@Size(min = 3, message = "[nombre] Minimo 3 caracteres")
 	@Column(name = "nombre", nullable = false, length = 255)
 	private String nombre;
-	
+
+	@ApiModelProperty(notes = "Resena debe tener minimo 3 caracteres")
 	@Size(min = 3, message = "[resena] Minimo 3 caracteres")
 	@Column(name = "resena", nullable = false, length = 255)
 	private String resena;
-	
+
+	@ApiModelProperty(notes = "Duracion debe tener minimo 3 caracteres")
 	@Min(value = 1 )
 	@Column(name = "duracion", nullable = false, length = 3)
 	private Integer duracion;
 	
+	@ApiModelProperty(notes = "Fecha de la publicacion")
 	@NotNull
 	@Column(name = "fecha_publicacion", nullable = false)
 	private LocalDate fechaPublicacion;
-	
+
+	@ApiModelProperty(notes = "URL Portada debe tener minimo 3 caracteres")
 	@Size(min = 3, message = "[urlPortada] Minimo 3 caracteres")
 	@Column(name = "urlPortada", nullable = false, length = 255)
 	private String urlPortada;
 	
+	@ApiModelProperty(notes = "Datos del genero")
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_genero", nullable = false, foreignKey = @ForeignKey(name = "fk_pelicula_genero"))
