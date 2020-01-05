@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.mitocode.exception.ModeloNotFoundException;
 import com.mitocode.model.Pelicula;
 import com.mitocode.service.IPeliculaService;
 
@@ -37,6 +38,9 @@ public class PeliculaController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Pelicula> listarPorId(@PathVariable("id") Integer id){
 		Pelicula obj = service.listarPorId(id);
+		if(obj.getIdPelicula() == null) {
+			throw new ModeloNotFoundException("ID NO EXISTE: " + id);
+		}
 		return new ResponseEntity<Pelicula>(obj, HttpStatus.OK);
 	}
 	
@@ -63,6 +67,10 @@ public class PeliculaController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> eliminar(@PathVariable("id") Integer id){
+		Pelicula obj = service.listarPorId(id);
+		if(obj.getIdPelicula() == null) {
+			throw new ModeloNotFoundException("ID NO EXISTE: " + id);
+		}
 		service.eliminar(id);
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
