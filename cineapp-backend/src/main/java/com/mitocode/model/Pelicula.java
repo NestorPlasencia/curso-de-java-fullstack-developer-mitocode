@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -21,21 +24,27 @@ public class Pelicula {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idPelicula;
 	
+	@Size(min = 3, message = "[nombre] Minimo 3 caracteres")
 	@Column(name = "nombre", nullable = false, length = 255)
 	private String nombre;
 	
+	@Size(min = 3, message = "[resena] Minimo 3 caracteres")
 	@Column(name = "resena", nullable = false, length = 255)
 	private String resena;
 	
+	@Min(value = 1 )
 	@Column(name = "duracion", nullable = false, length = 3)
 	private Integer duracion;
-
+	
+	@NotNull
 	@Column(name = "fecha_publicacion", nullable = false)
 	private LocalDate fechaPublicacion;
 	
+	@Size(min = 3, message = "[urlPortada] Minimo 3 caracteres")
 	@Column(name = "urlPortada", nullable = false, length = 255)
 	private String urlPortada;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_genero", nullable = false, foreignKey = @ForeignKey(name = "fk_pelicula_genero"))
 	private Genero genero;
@@ -95,6 +104,5 @@ public class Pelicula {
 	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
-	
 
 }
