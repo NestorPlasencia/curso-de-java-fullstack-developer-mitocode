@@ -3,6 +3,8 @@ package com.mitocode.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +47,7 @@ public class PeliculaController {
 	}*/
 	
 	@PostMapping
-	public ResponseEntity<Object> registrar(@RequestBody Pelicula obj) {
+	public ResponseEntity<Object> registrar(@Valid @RequestBody Pelicula obj) {
 		Pelicula pel = service.registrar(obj);
 		
 		// localhost:8080/peliculas/{id}
@@ -54,7 +56,7 @@ public class PeliculaController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<Pelicula> modificar(@RequestBody Pelicula obj) {
+	public ResponseEntity<Pelicula> modificar(@Valid @RequestBody Pelicula obj) {
 		Pelicula objeto = service.modificar(obj);
 		return new ResponseEntity<Pelicula>(objeto, HttpStatus.OK);
 	}
