@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.mitocode.dto.VentaDTO;
 import com.mitocode.exception.ModeloNotFoundException;
 import com.mitocode.model.Venta;
 import com.mitocode.service.IVentaService;
@@ -50,14 +51,24 @@ public class VentaController {
 		return new ResponseEntity<Venta>(objeto, HttpStatus.CREATED);
 	}*/
 	
-	@PostMapping
+	/*@PostMapping
 	public ResponseEntity<Object> registrar(@Valid @RequestBody Venta obj) {
 		Venta ven = service.registrar(obj);
 		
 		// localhost:8080/ventas/{id}
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(ven.getIdVenta()).toUri();
 		return ResponseEntity.created(location).build();
+	}*/
+	
+	@PostMapping
+	public ResponseEntity<Object> registrar(@Valid @RequestBody VentaDTO obj) {
+		Venta ven = service.registrarTransaccional(obj);
+		
+		// localhost:8080/ventas/{id}
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(ven.getIdVenta()).toUri();
+		return ResponseEntity.created(location).build();
 	}
+
 	
 	@PutMapping
 	public ResponseEntity<Venta> modificar(@Valid @RequestBody Venta obj) {
