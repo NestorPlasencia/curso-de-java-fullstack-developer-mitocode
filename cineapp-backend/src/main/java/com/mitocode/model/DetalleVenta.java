@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "detalle_venta")
 public class DetalleVenta {
@@ -21,6 +23,7 @@ public class DetalleVenta {
 	@Column(name = "asiento", length = 3)
 	private String asiento;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_venta", nullable = false, foreignKey = @ForeignKey(name = "fk_detalleVenta_venta"))
 	private Venta venta;
